@@ -1,24 +1,40 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
+  <head>
     <style>
-        #heading {
-            text-align: center;
-        }
+      #heading {
+        text-align: center;
+      }
 
-        #board {
-            border-style: solid;
-            position: absolute;
-        }
+      #board {
+        border-style: solid;
+        position: absolute;
+        margin-left: 150px;
+      }
+
+      #constant {
+        border: 1px solid black;
+        padding-right: 0px;
+        padding-left: 28px;
+        width: 100px;
+        border-radius: 5px;
+        position: relative;
+      }
     </style>
     <title>snake</title>
-</head>
+  </head>
 
-<body>
+  <body>
+    <ul id="constant">
+      <li id="distance">distance:</li>
+      <li id="speed">speed: </li>
+      <li id="time">time:</li>
+      <li id="length">length:</li>
+    </ul>
+
     <h1 id="heading">snake game</h1>
     <canvas id="board" width="640" height="640"></canvas>
-</body>
+  </body>
 
-<script src="snake.js"></script>
-
+  <script src="snake.js"></script>
 </html>

@@ -8,6 +8,12 @@ let snake = [
     { x: 80, y: 0 },
     { x: 120, y: 0 },
 ]
+
+let distance = 0;
+let speed = 0;
+let time = 0;
+let length = 0;
+
 function drawBoarder() {
     // horizontal and vertical line
     var black = true;
@@ -27,9 +33,17 @@ function drawBoarder() {
 
 function main() {
     drawBoarder();
+    updateConstant();
 }
 main();
 
 function randomNumberGenerator(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function updateConstant(){
+    document.getElementById("distance").innerText = "distance: " + distance;
+    document.getElementById("speed").innerText = "speed: " + speed;
+    document.getElementById("time").innerText = "time: " + time;
+    document.getElementById("length").innerText = "length: " + length;
 }
