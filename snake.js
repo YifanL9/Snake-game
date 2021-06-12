@@ -16,15 +16,15 @@ let length = 0;
 
 function drawBoarder() {
     // horizontal and vertical line
-    var black = true;
-    for (var i = 0; i < 640; i += 40) {
-        for (var j = 0; j < 640; j += 40) {
+    let black = true;
+    for (let i = 0; i < 320; i += 20) {
+        for (let j = 0; j < 320; j += 10) {
             if (black) {
                 board_ctx.fillStyle = "#000000";          
             } else {
                 board_ctx.fillStyle = "#AAAAAA";
             }
-            board_ctx.fillRect(i, j, i + 40, j + 40);
+            board_ctx.fillRect(i, j, i + 20, j + 20);
             black = !black;
         }
         black = !black;
@@ -34,6 +34,7 @@ function drawBoarder() {
 function main() {
     drawBoarder();
     updateConstant();
+
 }
 main();
 
