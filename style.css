@@ -1,0 +1,36 @@
+*{
+  box-sizing: border-box;
+}
+
+#heading {
+  text-align: center;
+  margin: 0;
+}
+
+.board-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#board {
+  width: 20rem;
+  height: 20rem;
+  border-style: solid;
+  margin-left: 1rem;
+}
+ul li{
+  list-style-type: none;
+  margin: 0 1rem;
+}
+#constant {
+  /* border: 1px solid black; */
+  /* border-radius: 5px; */
+  /*margin-left: 0.5rem;
+  margin-top: -0.1rem;
+  position: absolute; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
