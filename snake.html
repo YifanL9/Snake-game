@@ -1,25 +1,26 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>snake</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <h1 id="heading">snake game</h1>
-  <ul id="constant">
-    <li id="distance">distance: </li>
-    <li id="speed">speed: </li>
-    <li id="time">time: </li>
-    <li id="length">length: </li>
-  </ul>
-  <div class="board-container">
-    <canvas id="board"></canvas>
-  </div>
-  <br>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>snake</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="node_modules/ng"></script>
+  </head>
+  <body>
+    <h1 id="heading">snake game</h1>
+    <ul id="constant">
+      <li id="distance">distance:</li>
+      <li id="speed">speed:</li>
+      <li id="time">time:</li>
+      <li id="length">length:</li>
+    </ul>
+    <div class="board-container">
+      <canvas id="board"></canvas>
+    </div>
+    <br />
+    <script type= "module" src="snake.js"></script>
+    <script type = "module" src="userPreference.js"></script>
   </body>
-
-  <script src="snake.js"></script>
 </html>
