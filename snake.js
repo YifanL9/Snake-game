@@ -65,6 +65,20 @@ function drawBoard() {
   }
 }
 
+// @tail: the tail of the snake 
+// The snake moves by appending a new head to its original 
+// head and pop the tail So this function will change the 
+// color of the block taken by the tail to its orignal color at 
+// starting stage, that is, either black or gray. 
+function refillBlockColor(tail){
+  if(((tail.x / cellSize + tail.y / cellSize) % 2) == 0){
+    boardContext.fillStyle = "#000000";   
+  }
+  else{
+    boardContext.fillStyle = "#AAAAAA"; 
+  }
+  boardContext.fillRect(tail.x,tail.y, cellSize, cellSize); 
+}
 // A random number generator which can be used to determine the location of food
 // function randomNumberGenerator(min, max) {
 //   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -92,7 +106,6 @@ function drawSnake() {
 // The snake will not move until the user press the keyboard {ArrowUp, Arrowdown, ArrowLeft ArrowRight} key to move the snake. Then, the snake will start auto moving.
 function autoMoving() {
   const head = snake[0];
-  controlSnake();
   if (speed.dx != 0 || speed.dy != 0) {
     let newHead = {
       x: head.x + speed.dx,
@@ -100,9 +113,10 @@ function autoMoving() {
     };
     // To keep the shape of the snake, a new head will be placed in front of the old head and the tailed will be removed.
     snake.unshift(newHead);
-    snake.pop();
+    let tail = snake.pop();
+    refillBlockColor(tail); // change the popped tail color to original color(black or gray)
   }
-  drawBoard(); // clear the canvas
+  controlSnake();
   drawSnake(); //  draw the new location of the snake
   exit(); //  decide whether the snake is out of range
 }
@@ -112,35 +126,44 @@ function autoMoving() {
 // 1. The direction specified by the user pressed key is the same as the snake moving direction. ex: snake is moving right and the user presses ArrowRight.
 // 2. The direction specified by the user pressed key is the opposite as the snake moving direction. ex: snake is moving right and the user presses ArrowLight.
 function controlSnake() {
+  let keyPressed = false; // check whether any key has been pressed
   window.onkeydown = function (e) {
     let initialState = speed.dy == 0 && speed.dx == 0;
-    switch (e.key) {
-      case "ArrowLeft":
-        if (speed.dy != 0 || initialState) {
-          speed.dx -= cellSize;
-          speed.dy = 0;
-        }
-        break;
-      case "ArrowUp":
-        if (speed.dx != 0 || initialState) {
-          speed.dy -= cellSize;
-          speed.dx = 0;
-        }
-        break;
-      case "ArrowRight":
-        if (speed.dy != 0 || initialState) {
-          speed.dx += cellSize;
-          speed.dy = 0;
-        }
-        break;
-      case "ArrowDown":
-        if (speed.dx != 0 || initialState) {
-          speed.dy += cellSize;
-          speed.dx = 0;
-        }
-        break;
-      default:
-        break;
+    // The keyPressed boolean is added to make sure that only one key is pressed
+    // If multiple key are pressed together, it will only handle the first key pressed. 
+    if(!keyPressed){  
+      switch (e.key) {
+        case "ArrowLeft": 
+          if (speed.dy != 0 || initialState) { 
+            speed.dx -= cellSize;
+            speed.dy = 0;
+            keyPressed = true;
+          }
+          break;
+        case "ArrowUp":
+          if (speed.dx != 0 || initialState) {
+            speed.dy -= cellSize;
+            speed.dx = 0;
+            keyPressed = true;
+          }
+          break;
+        case "ArrowRight":
+          if (speed.dy != 0 || initialState) {
+            speed.dx += cellSize;
+            speed.dy = 0;
+            keyPressed = true;
+          }
+          break;
+        case "ArrowDown":
+          if (speed.dx != 0 || initialState) {
+            speed.dy += cellSize;
+            speed.dx = 0;
+            keyPressed = true;
+          }
+          break;
+        default:
+          break;
+      }
     }
   };
 }
