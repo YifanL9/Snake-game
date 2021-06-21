@@ -4,7 +4,7 @@
    
    This project is divided into two tasks. 
    
-   1. [] Make this game that user can control the movement of the snake by keyboard.
+   1. [x] Make this game that user can control the movement of the snake by keyboard.
    2. [] Based on the first task, we will find an algorithm and train an AI model to play this game.
 
 ___
