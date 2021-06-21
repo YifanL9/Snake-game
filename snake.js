@@ -1,5 +1,16 @@
 import { userPreference } from "./userPreference.js";
 const snakeColor = userPreference.snakeColor[0];
+// get the canvas
+const board = document.getElementById("board");
+const boardContext = board.getContext("2d");
+// Set the width and height of the board
+const cellSize = 20;
+const boardSize = userPreference.cellCount * cellSize;
+
+let totalDistanceElem = document.getElementById("distance");
+let currentSpeedElem = document.getElementById("speed");
+let timeElem = document.getElementById("time");
+let snakeLengthElem = document.getElementById("length");
 
 // Keep track of the status of the snake
 let gameStatus = {
@@ -13,19 +24,12 @@ let gameStatus = {
 // by default the length of it is 1, and the head of the snake is always
 // the first element
 let snake = [
-  // { x: 80, y: 0 },
+  // { x : 80, y : 0},
   // { x : 60, y : 0},
   // { x : 40, y : 0},
   // { x : 20, y : 0},
-  { x: 0, y: 0 },
+  { x : 0, y : 0 },
 ];
-
-// get the canvas
-const board = document.getElementById("board");
-const board_ctx = board.getContext("2d");
-// Set the width and height of the board
-const cellSize = 20;
-const boardSize = userPreference.cellCount * cellSize;
 
 // The dx and dy of the snake
 let speed = {
@@ -34,53 +38,53 @@ let speed = {
 };
 
 function main() {
-  drawBoarder();
+  drawBoard();
   drawSnake();
-  updateStatus();
-  setInterval(autoMoving, 250);
+  updateGameStatus();
+  setInterval(autoMoving, (1000 / userPreference.speed)); // 1 second
 }
 main();
 
 // Draw the board, and can also be used to clear the board
-function drawBoarder() {
+function drawBoard() {
   board.setAttribute("width", boardSize);
   board.setAttribute("height", boardSize);
-  let black = true;
+  let isBlack = true;
   // fill board with alternating color
   for (let i = 0; i < boardSize; i += cellSize) {
-    for (let j = 0; j < boardSize; j += 20) {
-      if (black) {
-        board_ctx.fillStyle = "#000000";
+    for (let j = 0; j < boardSize; j += cellSize) {
+      if (isBlack) {
+        boardContext.fillStyle = "#000000";
       } else {
-        board_ctx.fillStyle = "#AAAAAA";
+        boardContext.fillStyle = "#AAAAAA";
       }
-      board_ctx.fillRect(i, j, cellSize, cellSize);
-      black = !black;
+      boardContext.fillRect(i, j, cellSize, cellSize);
+      isBlack = !isBlack;
     }
-    black = !black;
+    isBlack = !isBlack;
   }
 }
 
 // A random number generator which can be used to determine the location of food
-function randomNumberGenerator(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+// function randomNumberGenerator(min, max) {
+//   return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
 
 // This method update the status of the snake.
-function updateStatus() {
-  document.getElementById("distance").innerText =
+function updateGameStatus() {
+  totalDistanceElem.innerText =
     "distance: " + gameStatus.distance;
-  document.getElementById("speed").innerText =
+  currentSpeedElem.innerText =
     "speed: " + gameStatus.currentSpeed;
-  document.getElementById("time").innerText = "time: " + gameStatus.time;
-  document.getElementById("length").innerText = "length: " + gameStatus.length;
+  timeElem.innerText = "time: " + gameStatus.time;
+  snakeLengthElem.innerText = "length: " + gameStatus.length;
 }
 
 // draw the snake
 function drawSnake() {
-  board_ctx.fillStyle = snakeColor;
+  boardContext.fillStyle = snakeColor;
   snake.forEach((element) => {
-    board_ctx.fillRect(element.x, element.y, cellSize, cellSize);
+    boardContext.fillRect(element.x, element.y, cellSize, cellSize);
   });
 }
 
@@ -94,12 +98,11 @@ function autoMoving() {
       x: head.x + speed.dx,
       y: head.y + speed.dy,
     };
-    // To keep the shape of the snake, a new head will be placed in front of
-    // the old head and the tailed will be removed.
+    // To keep the shape of the snake, a new head will be placed in front of the old head and the tailed will be removed.
     snake.unshift(newHead);
     snake.pop();
   }
-  drawBoarder(); // clear the canvas
+  drawBoard(); // clear the canvas
   drawSnake(); //  draw the new location of the snake
   exit(); //  decide whether the snake is out of range
 }
